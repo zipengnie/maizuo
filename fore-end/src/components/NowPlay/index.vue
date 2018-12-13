@@ -28,8 +28,10 @@
           <div class="buy">购票</div>
         </li>
       </ul>
+       <div class="load-more" @click="loadMore">{{ loadMoreText }}</div>
     </div>
     <!-- 影片介绍 -->
+
 </template>
 <script>
 // 引入axios库
@@ -39,8 +41,9 @@ export default {
   data () {
     return {
       films: [],
+      loadMoreText: '点击，加载下一页',
       pageNum: 1, // 当前页码
-      pageSiz: 5, // 每页条数
+      pageSize: 5, // 每页条数
       totalPage: 0 // 总页数
     }
   },
@@ -51,15 +54,24 @@ export default {
         params: {
           // get请求的参数要放在这个params参数里面
           pageNum: this.pageNum,
-          pageSiz: this.pageSiz,
-          type: 1
+          pageSiz: this.pageSiz
         }
       })
         .then((response) => {
           // console.log(response)
           var result = response.data
+          // 一共多少页
+          this.totalPage = Math.ceil(result.data.total / this.pageSize)
+          // 判断是否还有更多页
+          if (this.pageNum >= this.totalPage) {
+          // 没有更多页面
+            this.loadMoreText = '别拉啦，没有更多。'
+          }
           if (result.code === 0) {
-            this.films = result.data.films
+          // this.films = result.data.films
+          // 追加
+            // this.films = this.films.push(...result.data.films)
+            this.films = this.films.concat(result.data.films)
           } else {
             alert(result.msg)
           }
@@ -71,10 +83,22 @@ export default {
      */
     actorsList (list) {
       var arr = []
-      arr = list.map(item => {
-        return item.name
-      })
-      return arr.join(' ')
+      if (list) {
+        arr = list.map(item => {
+          return item.name
+        })
+      }
+      return arr.join('')
+    },
+    /**
+    * 加载更多
+    */
+    loadMore () {
+      // 对当前页码加1
+      if (this.pageNum < this.totalPage) {
+        this.pageNum++
+        this.getFilms()
+      }
     }
   },
   created () {
@@ -146,5 +170,10 @@ export default {
     text-align: center;
     border-radius: px2rem(4);
   }
+}
+.load-more {
+    height: px2rem(30);
+    line-height:px2rem(30);
+    text-align: center;
 }
 </style>
