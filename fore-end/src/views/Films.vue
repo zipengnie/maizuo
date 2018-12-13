@@ -31,63 +31,28 @@
     <!-- 正在上映和即将上映 -->
     <div class="tab-bar-wrapper">
       <ul class="tab-bar">
-        <li class="z-act">
+        <li :class="{'z-act': $route.path === '/films/nowPlaying'}" @click="switchList('now')">
           <span>正在热映</span>
         </li>
-        <li>
+        <li :class="{'z-act': $route.path === '/films/soonPlaying'}" @click="switchList('soon')">
           <span>即将上映</span>
         </li>
       </ul>
     </div>
     <!-- 正在上映和即将上映 -->
 
-    <!-- 影片介绍 -->
-    <div class="films-list-content">
-      <ul>
-        <li
-          v-for="(item, index) in films"
-          :key="index">
-          <div class="img">
-            <img :src="item.poster" alt="">
-          </div>
-          <div class="info">
-            <div>
-              <span class="name">{{ item.name }}</span>
-              <span class="type">{{ item.filmType.name }}</span>
-            </div>
-            <div>
-              <span class="label">观众评分</span>
-              <span class="grade">{{ item.grade }}</span>
-            </div>
-            <div>
-              <span class="label">主演： {{ actorsList(item.actors) }}</span>
-            </div>
-            <div>
-              <span class="label">{{ item.nation }} | {{ item.runtime }}分钟</span>
-            </div>
-          </div>
-          <div class="buy">购票</div>
-        </li>
-      </ul>
-    </div>
-    <!-- 影片介绍 -->
+    <router-view></router-view>
   </div>
 </template>
 <script>
 // 引入滑动插件
 import Swiper from 'swiper'
-// 引入axios库
-import axios from 'axios'
 export default {
   name: 'films',
   data () {
     return {
       // 当前城市
-      curCity: '',
-      films: [],
-      pageNum: 1, // 当前页码
-      pageSiz: 5, // 每页条数
-      totalPage: 0 // 总页数
+      curCity: ''
     }
   },
   methods: {
@@ -99,40 +64,28 @@ export default {
        this.curCity = result.name
      })
     },
-    // 获取影片
-    getFilms () {
-        axios.get('/api/films/list',{
-            params:{
-                // get请求的参数要放在这个params参数里面
-                pageNum: this.pageNum,
-                pageSiz: this.pageSiz
-            }
-        })
-        .then((response) => {
-            // console.log(response)
-            var result = response.data
-           if (result.code === 0) {
-            this.films = result.data.films;
-           } else {
-            alert(result.msg);
-           }
-        })
-    },
-    /**
-     * 排列我们主演列表
-     * @param {Array} list 主演列表
-     */
-    actorsList (list) {
-      var arr = [];
-      arr = list.map(item => {
-        return item.name;
-      });
-      return arr.join(' ');
+
+    // 切换路由
+    switchList (type) {
+      if(type === 'now'){
+        //   this.$router.push('/films/nowPlaying')
+        this.$router.push(
+          {
+            path:'/films/nowPlaying'
+          }
+        )
+      }else {
+        //   this.$router.push('/films/soonPlaying')
+         this.$router.push(
+          {
+            name:'soonPlaying'
+          }
+        )
+      }
     }
   },
   created () {
     this.getCityName ()
-    this.getFilms ()
   },
   mounted () {
     new Swiper('.swiper-container', {
@@ -225,65 +178,5 @@ export default {
   }
 }
 
-.films-list-content {
-  li {
-    display: flex;
-    margin: 0 px2rem(15);
-    padding: px2rem(15) 0;
-    border-bottom: px2rem(1) solid #ededed;
-  }
 
-  .img {
-    flex-shrink: 0;
-    width: px2rem(66);
-    height: px2rem(94);
-    img {
-      width: 100%;
-    }
-  }
-
-  .info {
-    min-width: 100px;
-    padding: 0 px2rem(10);
-    font-size: px2rem(14);
-    &>div {
-      width: 100%;
-      height: px2rem(22);
-      line-height: px2rem(22);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .label {
-      color: #797d82;
-      margin-right: px2rem(2);
-    }
-    .name {
-      font-size: px2rem(16);
-      color: #191a1b;
-    }
-    .type {
-      font-size: px2rem(12);
-      color: #fff;
-      background: #d2d6dc;
-      padding: 0 px2rem(2);
-    }
-    .grade {
-      color: #ffb232;
-    }
-  }
-
-  .buy {
-    flex-shrink: 0;
-    align-self: center;
-    width: px2rem(50);
-    height: px2rem(26);
-    line-height: px2rem(26);
-    font-size: px2rem(14);
-    color: #ff5f16;
-    border: px2rem(1) solid #ff5f16;
-    text-align: center;
-    border-radius: px2rem(4);
-  }
-}
 </style>

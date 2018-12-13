@@ -8,13 +8,29 @@ import Films from './views/Films.vue'
 import Cinema from './views/Cinema.vue'
 // 引入个人中心首页（单页面组件）组件
 import Center from './views/Center.vue'
+
+// 引入正在上映影片组件
+import NowPlay from './components/NowPlay/index.vue'
+// 引入正在上映影片组件
+import SoonPlay from './components/SoonPlay/index.vue'
 // 插件安装
 Vue.use(VueRouter)
 var router = new VueRouter({
   routes: [{// 电影首页
     path: '/films',
     name: 'films',
-    component: Films
+    component: Films,
+    children: [{
+      path: 'nowPlaying',
+      name: 'nowPlaying',
+      component: NowPlay
+    },
+    {
+      path: 'soonPlaying',
+      name: 'soonPlaying',
+      component: SoonPlay
+    }
+    ]
   },
     // 影院首页
   {
@@ -30,7 +46,7 @@ var router = new VueRouter({
   },
   { // 默认路径
     path: '*',
-    redirect: '/films'
+    redirect: '/films/NowPlaying'
   }]
 })
 export default router
