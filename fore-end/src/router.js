@@ -27,6 +27,10 @@ var router = new VueRouter({
       component: Home,
       children: [
         {
+          path: '',
+          redirect: '/films/NowPlaying'
+        },
+        {
           // 电影首页
           path: 'films',
           name: 'films',
@@ -68,5 +72,19 @@ var router = new VueRouter({
       path: '*',
       redirect: '/films/NowPlaying'
     }]
+})
+
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  // console.log(from)
+  // console.log(to)
+  next()
+  // console.log(to)
+})
+
+// 全局后置守卫
+router.afterEach((to, from) => {
+  console.log(from)
+  console.log(to)
 })
 export default router
