@@ -1,26 +1,7 @@
 <template>
   <div class="films-list">
-     <!-- 轮播图 -->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="../images/pic-1.jpg" alt="">
-        </div>
-        <div class="swiper-slide">
-          <img src="../images/pic-2.jpg" alt="">
-        </div>
-        <div class="swiper-slide">
-          <img src="../images/pic-3.jpg" alt="">
-        </div>
-        <div class="swiper-slide">
-          <img src="../images/pic-4.jpg" alt="">
-        </div>
-      </div>
-      <!-- 如果需要分页器 -->
-      <div class="swiper-pagination"></div>
-    </div>
-    <!-- /轮播图 -->
-
+    <!-- Banner组件（轮播图组件） -->
+    <Banner></Banner>
      <!-- 定位城市 -->
     <div class="city-fixed">
       <span>{{ curCity }}</span>
@@ -47,8 +28,13 @@
 <script>
 // 引入滑动插件
 import Swiper from 'swiper'
+// 引入Banner组件
+import Banner from '../components/Banner'
 export default {
   name: 'films',
+  components: {
+    Banner
+  },
   data () {
     return {
       // 当前城市
@@ -87,7 +73,7 @@ export default {
   created () {
     this.getCityName ()
   },
-  mounted () {
+   mounted () {
     new Swiper('.swiper-container', {
       // autoplay: true,
       autoplay: {
@@ -118,11 +104,13 @@ export default {
 <style lang="scss">
 // @import '../styles/common/px2rem.scss';相当于@import '@/styles/common/px2rem.scss';@是src文件的别名
 @import '@/styles/common/px2rem.scss';
+// 引入滑动样式
 @import 'swiper/dist/css/swiper.min.css';
 .films-list {
   flex: 1;
   overflow-y: auto;
 }
+
 .swiper-container {
   height: px2rem(210);
   .swiper-pagination-bullet {
