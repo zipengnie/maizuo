@@ -5,7 +5,7 @@
       v-for="(item, index) in bars"
       :key="index"
       :class="item.id"
-      :to="{ name: item.id }"
+      :to="{ path: item.path }"
       tag="li"
       active-class="z-act">
       <i class="img"></i>
@@ -19,9 +19,9 @@ export default {
   data () {
     return {
       bars: [
-        { id: 'films', name: '电影' },
-        { id: 'cinema', name: '影院' },
-        { id: 'center', name: '我的' }
+        { id: 'films', path: '/films/nowPlaying', name: '电影' },
+        { id: 'cinema', path: '/cinema', name: '影院' },
+        { id: 'center', path: '/center', name: '我的' }
       ]
     }
   }
