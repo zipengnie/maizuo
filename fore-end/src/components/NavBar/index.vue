@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       bars: [
-        { id: 'films', path: '/films/nowPlaying', name: '电影' },
+        { id: 'nowPlaying', path: '/films', name: '电影' },
         { id: 'cinema', path: '/cinema', name: '影院' },
         { id: 'center', path: '/center', name: '我的' }
       ]
@@ -54,7 +54,7 @@ export default {
       background-size: 100%;
     }
 
-    &.films {
+    &.nowPlaying {
       .img {
         background-image: url('./images/films.png');
       }
