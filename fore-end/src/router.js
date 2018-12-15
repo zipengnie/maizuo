@@ -2,6 +2,11 @@
 import VueRouter from 'vue-router'
 // import和require一样，第一次加载vue模块时，会缓存该模块，以后再加载该模块，就直接从缓存取出该模块 ，这里引入的其实是main.js引入vue模块的缓存，并不是真正又引入了一次vue组件，因为main.js是第一次引入的)
 import Vue from 'vue'
+
+// 引入进度条效果
+import NProgress from 'nprogress'
+// 引入进度条效果css
+import 'nprogress/nprogress.css'
 // 引入home组件
 import Home from './views/Home.vue'
 // 引入电影首页（单页面组件）组件
@@ -66,7 +71,11 @@ var router = new VueRouter({
     {
       path: '/film/:filmId',
       name: 'filmDetail',
-      component: FilmDetail
+      component: FilmDetail,
+      beforeEnter (to, from, next) {
+        console.log('路由独享守卫')
+        next()
+      }
     },
     { // 默认路径
       path: '*',
@@ -76,6 +85,7 @@ var router = new VueRouter({
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
+  NProgress.start()
   // console.log(from)
   // console.log(to)
   next()
@@ -84,7 +94,8 @@ router.beforeEach((to, from, next) => {
 
 // 全局后置守卫
 router.afterEach((to, from) => {
-  console.log(from)
-  console.log(to)
+  NProgress.done()
+  // console.log(from)
+  // console.log(to)
 })
 export default router
