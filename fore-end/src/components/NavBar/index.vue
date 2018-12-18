@@ -21,6 +21,7 @@ export default {
       bars: [
         { id: 'nowPlaying', path: '/films', name: '电影' },
         { id: 'cinema', path: '/cinema', name: '影院' },
+        { id: 'discount', path: '/discount', name: '9.9折' },
         { id: 'center', path: '/center', name: '我的' }
       ]
     }
@@ -62,7 +63,12 @@ export default {
         background-image: url('./images/films_on.png');
       }
     }
-    &.cinema {
+    &.discount {
+      .img {
+        background-image: url('./images/discount.png');
+      }
+    }
+     &.cinema {
       .img {
         background-image: url('./images/cinemas.png');
       }

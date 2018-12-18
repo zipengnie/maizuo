@@ -2,9 +2,10 @@
 import VueRouter from 'vue-router'
 // import和require一样，第一次加载vue模块时，会缓存该模块，以后再加载该模块，就直接从缓存取出该模块 ，这里引入的其实是main.js引入vue模块的缓存，并不是真正又引入了一次vue组件，因为main.js是第一次引入的)
 import Vue from 'vue'
-// 引入进度条效果
-import NProgress from 'nprogress'
-
+// // 引入进度条效果
+// import NProgress from 'nprogress'
+// 按需引入mint-ui里面的进度条组件
+import { Indicator } from 'mint-ui'
 // 引入进度条效果css
 import 'nprogress/nprogress.css'
 // // 引入home组件
@@ -13,6 +14,8 @@ import 'nprogress/nprogress.css'
 // import Films from './views/Films.vue'
 // // 引入影院首页（单页面组件）组件
 // import Cinema from './views/Cinema.vue'
+// // 引入城市首页（单页面组件）组件
+// import City from './views/City.vue'
 // // 引入个人中心首页（单页面组件）组件
 // import Center from './views/Center.vue'
 // // 引入登录组件
@@ -30,6 +33,8 @@ import 'nprogress/nprogress.css'
 
 // 插件安装
 Vue.use(VueRouter)
+// 按需引入Mint ui里面的进度条组件
+Vue.use(Indicator)
 var router = new VueRouter({
   routes: [
     {
@@ -45,12 +50,13 @@ var router = new VueRouter({
         {
           // 电影首页
           path: 'films',
-          // name: 'films',
+          name: 'films',
           // component: Films,
           // 路由懒加载
           component: () => import('./views/Films.vue'),
           children: [
             {
+              // 正在上映
               path: 'nowPlaying',
               name: 'nowPlaying',
               // component: NowPlay
@@ -58,6 +64,7 @@ var router = new VueRouter({
               component: () => import('./components/NowPlay/index.vue')
             },
             {
+              // 即将上映
               path: 'soonPlaying',
               name: 'soonPlaying',
               // component: SoonPlay
@@ -72,7 +79,8 @@ var router = new VueRouter({
           name: 'cinema',
           // component: Cinema
           // 路由懒加载
-          component: () => import('./views/Cinema.vue')
+          component: () =>
+            import('./views/Cinema.vue')
         },
         // 个人中心首页
         {
@@ -90,7 +98,8 @@ var router = new VueRouter({
       name: 'filmDetail',
       // component: FilmDetail,
       // 路由懒加载
-      component: () => import('./views/filmDetail.vue'),
+      component: () =>
+        import('./views/filmDetail.vue'),
       beforeEnter (to, from, next) {
         console.log('路由独享守卫')
         next()
@@ -101,51 +110,67 @@ var router = new VueRouter({
       path: '/user',
       component: {
         template: `
-          <div>
-            <router-view></router-view>
-          </div>
-        `
+      <div>
+      <router-view></router-view>
+      </div>
+  `
       },
-      children: [
-        {
-          path: 'card',
-          // component: Card,
-          component: () => import(/* webpackChunkName: "card" */ './views/Card.vue'),
-          beforeEnter (to, from, next) {
-            // 用没有登录
-            if (localStorage.getItem('userName')) {
-              next()
-            } else {
-              // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
-              // localStorage.setItem('myNeedPage', '/user/card');
-              // next('/user/login');
-              console.log(to.fullPath)
-              next({
-                path: '/user/login',
-                query: {
-                  redirect: to.fullPath
-                }
-              })
-            }
+      children: [{
+        path: 'card',
+        // component: Card,
+        component: () => import(/* webpackChunkName: "card" */ './views/Card.vue'),
+        beforeEnter (to, from, next) {
+        // 用没有登录
+          if (localStorage.getItem('userName')) {
+            next()
+          } else {
+            // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
+            // localStorage.setItem('myNeedPage', '/user/card');
+            // next('/user/login');
+            console.log(to.fullPath)
+            next({
+              path: '/user/login',
+              query: {
+                redirect: to.fullPath
+              }
+            })
           }
-        },
-        {
-          path: 'login',
-          // component: Login
-          component: () => import('./views/Login.vue')
         }
+      },
+      {
+        path: 'login',
+        // component: Login
+        component: () => import('./views/Login.vue')
+      }
       ]
+    },
+    // 城市首页
+    {
+      path: '/city',
+      name: 'city',
+      // component: Cinema
+      // 路由懒加载
+      component: () => import('./views/City.vue')
+    },
+    // 9.9折首页
+    {
+      path: '/discount',
+      name: 'discount',
+      // component: Discount
+      // 路由懒加载
+      component: () => import('./views/Discount.vue')
     },
     { // 默认路径
       path: '*',
       redirect: '/films/NowPlaying'
-    }]
+    }
+  ]
 })
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-  NProgress.start()
-
+  // NProgress.start()
+  Indicator.open('加载中...')
   // 判断当前要去的路由是不是卖座卡或者余额或者设置  这样在全局里面是没有问题，只是要做判断
   // if (to.name === 'card' || to.name === 'yue' || to.name === 'set') {
   //   // 如果当前用户有登录，就可以去
@@ -161,7 +186,8 @@ router.beforeEach((to, from, next) => {
 
 // 全局后置守卫
 router.afterEach((to, from) => {
-  NProgress.done()
+  // NProgress.done()
+  Indicator.close()
   // console.log(from)
   // console.log(to)
 })

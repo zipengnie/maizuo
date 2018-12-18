@@ -1,0 +1,18 @@
+root = true
+
+[*]
+# 字符编码
+charset = utf-8
+# 空格
+indent_style = space
+# 
+indent_size = 2
+# 回车换行符
+# Dos和windows采用回车+换行CR/LF表示下一行,
+# 而UNIX/Linux采用换行符LF表示下一行，
+# 苹果机(MAC OS系统)则采用回车符CR表示下一行.
+end_of_line = lf
+# 是否插入新行
+insert_final_newline = true
+# 去除多余空格
+trim_trailing_whitespace = true

@@ -1,8 +1,12 @@
 <template>
   <div class="film-detail">
+     <header class="film-header">
+        <a href="/" class="go-back"><i class="iconfont icon-zuojiantou"></i></a>
+    </header>
     <div class="film-poster">
       <img src="https://pic.maizuo.com/usr/movie/f713d0f85512087679ac951e8565d187.jpg?x-oss-process=image/quality,Q_70" alt="">
     </div>
+
     <div class="film-detail">
       <div class="col">
         <div class="film-name">
@@ -14,6 +18,7 @@
           <span class="grade-text">分</span>
         </div>
       </div>
+
       <div class="film-category grey-text">动作 | 奇幻 | 冒险</div>
       <div class="film-premiere-time grey-text">
         2018-12-07上映
@@ -28,10 +33,35 @@
         <i class="iconfont icon-xiala"></i>
       </div>
     </div>
-    <router-link to="/film/9898">我要看猫王</router-link>
+   <div class="actors">
+      <div class="actors-title-bar"><span class="actors-title-text">演职人员</span></div>
+      <ul class="actors-list">
+        <li><a href="#"><img src="../images/actor1.jpg"/><p class="actors-name">温子仁</p><p class="actors-role">导演</p></a></li>
+        <li><a href="#"><img src="../images/actor2.jpg"/><p class="actors-name">温子仁</p><p class="actors-role">导演</p></a></li>
+        <li><a href="#"><img src="../images/actor3.jpg"/><p class="actors-name">温子仁</p><p class="actors-role">导演</p></a></li>
+        <li><a href="#"><img src="../images/actor4.jpg"/><p class="actors-name">温子仁</p><p class="actors-role">导演</p></a></li>
+      </ul>
   </div>
+  <div class="actors-photo">
+      <div class="actors-photo-bar"><span class="actors-photo-text">剧照</span></div>
+      <ul class="actors-photo-list">
+        <li><a href="#"><img src="../images/photo1.jpg"/></a></li>
+        <li><a href="#"><img src="../images/photo2.jpg"/></a></li>
+        <li><a href="#"><img src="../images/photo3.jpg"/></a></li>
+        <li><a href="#"><img src="../images/photo4.jpg"/></a></li>
+        <li><a href="#"><img src="../images/photo5.jpg"/></a></li>
+        <li><a href="#"><img src="../images/photo6.jpg"/></a></li>
+      </ul>
+  </div>
+  <a href="#/film/4469/cinemas" class=""><div class="goSchedule">
+        选座购票
+      </div></a>
+</div>
 </template>
 <script>
+import Vue from 'vue'
+import { Header } from 'mint-ui'
+Vue.use(Header.name, Header)
 export default {
   name: 'FilmDetail',
   data () {
@@ -87,6 +117,29 @@ export default {
 </script>
 <style lang="scss">
 @import '@/styles/common/px2rem.scss';
+.film-header {
+  position: fixed;
+  z-index: 1;
+  height: px2rem(30);
+  width: 100%;
+}
+.go-back {
+  text-decoration: none;
+  display: inline-block;
+  height: px2rem(30);
+  width: px2rem(30);
+  background: #fff;
+  border-radius: px2rem(15);
+  text-align: center;
+  margin: px2rem(2);
+}
+.go-back i {
+  color: rgba(10, 5, 5, 0.4);
+  height: px2rem(30);
+  line-height: px2rem(30);
+  font-size: px2rem(20);
+  font-weight: 800;
+}
 .film-detail {
   flex: 1;
   overflow-y: auto;
@@ -160,5 +213,100 @@ export default {
       }
     }
   }
+}
+.actors {
+  border-top: px2rem(10) solid rgba(0,0,0,0.1);
+  padding: px2rem(4);
+  width: 100%;
+}
+.actors-title-bar {
+    width: 100%;
+    padding: px2rem(15);
+}
+.actors-title-text {
+  font-size: px2rem(16);
+  text-align: left;
+  color: #191a1b;
+}
+.actors-title-bar span {
+    display: inline-block;
+    height: px2rem(22);
+    line-height: px2rem(22);
+}
+.actors-list {
+  display: flex;
+  justify-content: space-between;
+}
+.actors-list li {
+  width: 24%;
+}
+.actors-list li a {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.actors-list a img {
+  width: 100%;
+}
+.actors-name {
+  padding-top: 10px;
+  font-size: px2rem(12);
+  color: #191a1b;
+}
+.actors-role {
+  padding: px2rem(9);
+  font-size: px2rem(10);
+  color: #797d82;
+}
+.goSchedule {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: px2rem(49);
+    width: 100%;
+    text-align: center;
+    background-color: #ff5f16;
+    color: #fff;
+    font-size: px2rem(16);
+    line-height: px2rem(49);
+}
+
+// <div class="actors-photo">
+//       <div class="actors-photo-bar"><span class="actors-photo-text">剧照</span></div>
+//       <ul class="actors-photo-list">
+
+.actors-photo {
+  border-top: px2rem(10) solid rgba(0,0,0,0.1);
+  padding: px2rem(4);
+  width: 100%;
+}
+.actors-photo-bar {
+    width: 100%;
+    padding: px2rem(15);
+}
+.actors-photo-text {
+  font-size: px2rem(16);
+  text-align: left;
+  color: #191a1b;
+}
+.actors-photo-bar span {
+    display: inline-block;
+    height: px2rem(22);
+    line-height: px2rem(22);
+}
+.actors-photo-list {
+  display: flex;
+  // justify-content: space-between;
+}
+.actors-photo-list li {
+  width: 46%;
+}
+.actors-photo-list a {
+  display: inline-block;
+  width: 100%;
+}
+.actors-photo-list a img {
+  width: 100%;
 }
 </style>
