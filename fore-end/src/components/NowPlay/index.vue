@@ -66,8 +66,9 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           var result = response.data
+          console.log(result.data.films)
           // 一共多少页
           this.totalPage = Math.ceil(result.data.total / this.pageSize)
           // 判断是否还有更多页

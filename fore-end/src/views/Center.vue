@@ -1,11 +1,11 @@
 <template>
   <div class="center-view">
     <header id="header">
-      <div class="tou">
-        <i class="iconfont icon-filedicon_my_green_"></i>
+      <div class="tou" :class="{ touPhoto: phone}">
       </div>
       <h2>
-        <a href="./login.html">立即登录</a>
+        <router-link to="/user/card" v-if="!phone">立即登录</router-link>
+        <span v-if="phone">{{ phone.phone }}</span>
       </h2>
     </header>
     <main id="main">
@@ -55,7 +55,12 @@
 
 <script>
 export default {
-  name: 'Center'
+  name: 'Center',
+  data () {
+    return {
+      phone: JSON.parse(localStorage.getItem('userName')) ? JSON.parse(localStorage.getItem('userName')) : ''
+    }
+  }
 }
 </script>
 
@@ -76,14 +81,14 @@ export default {
     height: px2rem(67);
     width: px2rem(67);
     border: px2rem(2) solid white;
-    background: #ccc url('~@/images/head.png') no-repeat;
+    background: #ccc url('~@/images/head.png') no-repeat 0 0;
     border-radius: 50%;
     align-self: center;
     margin-left: px2rem(20);
-    .iconfont {
-      font-size: px2rem(60);
-      color: white;
-    }
+  }
+ .touPhoto {
+    background: #ccc url('../images/tou.gif') no-repeat;
+    background-size: 100%;
   }
   h2 {
     font-size: px2rem(16);

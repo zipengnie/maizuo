@@ -5,7 +5,6 @@ var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://127.0.0.1:27017/';
 
-
 // 获取影片列表  location:3000/api/film/list
 router.get('/list', function(req, res) {
   var pageNum = parseInt(req.query.pageNum) || 1; // 当前第几页
@@ -92,11 +91,10 @@ router.get('/list', function(req, res) {
             }
           })
         }
+        console.log(res.json.data)
         // 关闭服务器连接
         client.close();
       })
-
-
     }
   })
 })

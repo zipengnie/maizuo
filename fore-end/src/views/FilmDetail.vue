@@ -10,24 +10,24 @@
     <div class="film-detail">
       <div class="col">
         <div class="film-name">
-          <span class="name">{{ filmName }}</span>
-          <span class="item">3D</span>
+          <span class="name">{{ film.name }}</span>
+          <span class="item">{{ film.name && film.filmType.name }}</span>
         </div>
         <div class="film-grade">
-          <span class="grade">7.2</span>
+          <span class="grade">{{ film.grade }}</span>
           <span class="grade-text">分</span>
         </div>
       </div>
 
-      <div class="film-category grey-text">动作 | 奇幻 | 冒险</div>
+      <div class="film-category grey-text">{{ film.category }}</div>
       <div class="film-premiere-time grey-text">
-        2018-12-07上映
+        {{ new Date().toLocaleString(time).split(" ")[0] }}上映
       </div>
       <div class="film-nation-runtime grey-text">
-        美国   澳大利亚  | 143分钟
+        {{ film.nation }} | {{ film.runtime }}分钟
       </div>
       <div class="film-synopsis grey-text">
-        本片由杰森·莫玛领衔主演，讲述半人半亚特兰蒂斯血统的亚瑟·库瑞踏上永生难忘的征途——他不但需要直面自己的特殊身世，更不得不面对生而为王的考验：自己究竟能否配得上“海王”之名。
+        {{ film.synopsis }}
       </div>
       <div class="toggle">
         <i class="iconfont icon-xiala"></i>
@@ -58,36 +58,34 @@
       </div></a>
 </div>
 </template>
+
 <script>
 import Vue from 'vue'
+import axios from 'axios'
 import { Header } from 'mint-ui'
 Vue.use(Header.name, Header)
 export default {
   name: 'FilmDetail',
   data () {
     return {
-      filmName: ''
+      film: ''
     }
   },
-  // watch: {
-  // $route (newVal, oldVal) {
-  //   // $route 发生变化，我就请求后台数据
-  //   this.getFilmDetail();
-  // }
-  // },
   methods: {
     getFilmDetail () {
-      setTimeout(() => {
-        if (this.$route.params.filmId === 4475) {
-          this.filmName = '海王'
-        } else {
-          this.filmName = '猫王'
+      var filmId = this.$route.params.filmId
+      axios.get('/api/filmDetail', {
+        params: {
+          // 电影id
+          filmId: filmId
         }
-      }, 2000)
+      }).then((response) => {
+        console.log(response.data.data)
+        this.film = response.data.data[0]
+      })
     }
   },
   created () {
-    // let filmId = this.$route.params.filmId;
     this.getFilmDetail()
   },
   beforeRouteEnter (to, from, next) {
@@ -198,8 +196,11 @@ export default {
       margin-top: px2rem(4);
     }
     .film-synopsis {
+      height: px2rem(40);
       margin-top: px2rem(8);
       overflow: hidden;
+      white-space: wrap;
+      text-overflow: ellipsis;
       &.hide {
         height: px2rem(40);
       }
