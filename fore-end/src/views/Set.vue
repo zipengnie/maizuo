@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <mt-header title="卖座卡">
+    <mt-header title="设置">
       <router-link to="/" slot="left">
         <mt-button icon="back"><i class="iconfont icon-Home"></i></mt-button>
       </router-link>
@@ -18,7 +18,7 @@ import Vue from 'vue'
 import { Header } from 'mint-ui'
 Vue.component(Header.name, Header)
 export default {
-  name: 'Card'
+  name: 'Set'
 }
 </script>
 <style lang="scss" scoped>

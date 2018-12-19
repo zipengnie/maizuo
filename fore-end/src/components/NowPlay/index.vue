@@ -25,10 +25,12 @@
               <span class="label">{{ item.nation }} | {{ item.runtime }}分钟</span>
             </div>
           </div>
-          <!-- <div class="buy" @click.stop="addCart(item)">购票</div> -->
-          <button @click.stop="reduceFilm(item)">-</button>
-          <input type="text" disabled :value="findNum(item)">
-          <button @click.stop="addFilm(item)">+</button>
+          <div class="action">
+            <!-- <div class="buy" @click.stop="addCart(item)">购票</div> -->
+            <button @click.stop="reduceFilm(item)">-</button>
+            <input type="text" disabled :value="findNum(item)">
+            <button @click.stop="addFilm(item)">+</button>
+          </div>
         </li>
       </ul>
        <div class="load-more" @click="loadMore">{{ loadMoreText }}</div>
@@ -220,6 +222,19 @@ export default {
     }
   }
 
+.action {
+  display: flex;
+  align-items: center;
+  button {
+    width: px2rem(26);
+    height: px2rem(30);
+  }
+  input {
+    width: px2rem(26);
+    height: px2rem(30);
+    box-sizing: border-box;
+  }
+}
   .buy {
     flex-shrink: 0;
     align-self: center;

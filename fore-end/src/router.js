@@ -122,33 +122,78 @@ var router = new VueRouter({
       </div>
   `
       },
-      children: [{
-        path: 'card',
-        // component: Card,
-        component: () => import(/* webpackChunkName: "card" */ './views/Card.vue'),
-        beforeEnter (to, from, next) {
-        // 用没有登录
-          if (localStorage.getItem('userName')) {
-            next()
-          } else {
-            // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
-            // localStorage.setItem('myNeedPage', '/user/card');
-            // next('/user/login');
-            console.log(to.fullPath)
-            next({
-              path: '/user/login',
-              query: {
-                redirect: to.fullPath
-              }
-            })
+      children: [
+        {
+          path: 'card',
+          // component: Card,
+          component: () => import(/* webpackChunkName: "card" */ './views/Card.vue'),
+          beforeEnter (to, from, next) {
+          // 用没有登录
+            if (localStorage.getItem('userName')) {
+              next()
+            } else {
+              // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
+              // localStorage.setItem('myNeedPage', '/user/card');
+              // next('/user/login');
+              console.log(to.fullPath)
+              next({
+                path: '/user/login',
+                query: {
+                  redirect: to.fullPath
+                }
+              })
+            }
           }
+        },
+        {
+          path: 'balance',
+          // component: Balance,
+          component: () => import(/* webpackChunkName: "card" */ './views/Balance.vue'),
+          beforeEnter (to, from, next) {
+          // 用没有登录
+            if (localStorage.getItem('userName')) {
+              next()
+            } else {
+              // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
+              // localStorage.setItem('myNeedPage', '/user/card');
+              // next('/user/login');
+              console.log(to.fullPath)
+              next({
+                path: '/user/login',
+                query: {
+                  redirect: to.fullPath
+                }
+              })
+            }
+          }
+        },
+        {
+          path: 'set',
+          // component: Set,
+          component: () => import(/* webpackChunkName: "card" */ './views/Set.vue'),
+          beforeEnter (to, from, next) {
+          // 用没有登录
+            if (localStorage.getItem('userName')) {
+              next()
+            } else {
+              // 注意，如果需要实现，拦截到登陆页面之后，登录成功回跳到那个页面。
+              // localStorage.setItem('myNeedPage', '/user/card');
+              // next('/user/login');
+              console.log(to.fullPath)
+              next({
+                path: '/user/login',
+                query: {
+                  redirect: to.fullPath
+                }
+              })
+            }
+          }
+        },
+        {
+          path: 'login',
+          // component: Login
+          component: () => import('./views/Login.vue')
         }
-      },
-      {
-        path: 'login',
-        // component: Login
-        component: () => import('./views/Login.vue')
-      }
       ]
     },
     // 城市首页

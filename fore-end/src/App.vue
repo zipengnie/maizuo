@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-    <transition>
+    <transition mode="out-in" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown" :duration="{enter:300,leave:300}">
       <router-view></router-view>
     </transition>
   </div>
