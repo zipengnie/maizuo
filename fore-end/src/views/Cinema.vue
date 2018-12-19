@@ -1,58 +1,74 @@
 <template>
   <div class="cinemas-list">
-    <h1>当前项目是：{{project}}</h1>
-    <h1>影院首页</h1>
-    <h3>当前定位的城市是{{curCity}}</h3>
-    <h4>{{cinemaCity}}</h4>
-    <button @click="change">修改</button>
-    <br>
-    <ul>
-      <li v-for="(item,index) in myLoveBooks" :key="index">{{item.name}}</li>
+    <div>
+      <header class="mint-header">
+        <div class="mint-header-button is-left">
+          <a href="#/" class="router-link-active">
+            <button class="mint-button mint-button--default mint-button--normal">
+              <label class="mint-button-text">{{ curCity }}</label>
+            </button>
+          </a>
+        </div>
+        <h1 class="mint-header-title">影院</h1>
+        <router-link to="/search"><i class="iconfont icon-sousuo"></i></router-link>
+      <div class="mint-header-button is-right"></div>
+    </header>
+    <!-- 全部和最近去过 -->
+      <div class="tab-bar-wrapper">
+        <ul class="tab-bar">
+          <li @click="switchList('all')">
+            <span>全部</span>
+            <span>1</span>
+          </li>
+          <li @click="switchList('near')">
+            <span>最近去过</span>
+            <span>2</span>
+          </li>
+        </ul>
+      </div>
+      <!-- 全部和最近去过 -->
+    </div>
+    <ul class="cinema-ul">
+      <li v-for="(item, index) in cinemaInfo" :key="index">
+        <a href="#">
+        <div class="cinema-left">
+          <p class="cinema-name">{{ item.name }}</p>
+          <p class="cinema-address">{{ item.address }}</p>
+        </div>
+        <div>
+          <p class="cinema-low-price">￥{{  parseInt(item.lowPrice/100) }}起</p>
+          <p class="cinema-distance">{{ item.Distance.toFixed(2) }}</p>
+        </div>
+        </a>
+      </li>
     </ul>
   </div>
 </template>
 <script>
-// // 引入store仓库
-// import store from '../store'
-// 需要使用辅助函数就得引入,这里使用了ES6解构赋值
-import { mapState, mapGetters } from 'vuex'
-// var mapState = vuex.mapState
-
+import Vue from 'vue'
+import { Header } from 'mint-ui'
+import axios from 'axios'
+// import { mapState, mapGetters } from 'vuex'
+Vue.use(Header.name, Header)
 export default {
   name: 'cinema',
   data () {
     return {
-      // changku: this.$store //  this.$store是一个对象（引用数据类型）
-      cinemaName: '深圳市-凤凰传奇'
+      curCity: this.$store.state.curCity,
+      cinemaInfo: ''
     }
   },
-  // computed: {
-  //   curCity () {
-  //     return this.$store.state.curCity
-  //   },
-  //   project () {
-  //     return this.$store.state.project
-  //   },
-  //   cinemaCity () {
-  //     return this.cinemaName.split('-')[0]
-  //   }
-  // },
-  // computed: mapState(['curCity', 'project']),
-  // computed: mapState({myCity: 'curCity', myProject: 'project'})
-  computed: {...mapState(['curCity', 'project']), ...mapGetters(['myLoveBooks']), cinemaCity () { return this.cinemaName.split('-')[0] }},
   methods: {
-    // 注意：这里修改的是当前组件的changku的值，并不会改变store的state.curCity，需要使用store.commit 方法提交 mutation改变state得状态
-    change () {
-      // 如果不小心定义了this.changku = 'zhangsan'就切断了与store的联系
-      // this.changku.state.curCity = '南京市'
-      // this.$store.commit('chgCurCity', '南京')
-      // this.$store.commit('chgCurCity', { 'cityName': '南京', 'quName': '宝安区' })
-      this.$store.commit({ type: 'chgCurCity', 'cityName': '南京', 'quName': '宝安区' })
+    getCinema () {
+      axios.get('/api/cinema').then(response => {
+        console.log(response.data.data)
+        this.cinemaInfo = response.data.data
+        console.log(this.curCity)
+      })
     }
   },
-  mounted () {
-    // 怎样访问到store里面的getters
-    // console.log(this.$store.getters.myLoveBooks)
+  created () {
+    this.getCinema()
   }
 }
 </script>
@@ -62,8 +78,111 @@ export default {
 @import '@/styles/common/px2rem.scss';
 .cinemas-list {
   flex: 1;
+ overflow-y: auto;
 }
-button {
-  font-size: px2rem(20);
+.mintui {
+   font-size: px2rem(20);
+}
+.mint-header {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #fff;
+    box-sizing: border-box;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: px2rem(17);
+    height: px2rem(40);
+    width: 100%;
+    line-height: 1;
+    padding: 0 px2rem(10);
+    position: fixed;
+    text-align: center;
+    white-space: nowrap;
+    background: #fff;
+    z-index: 1;
+    border-bottom: px2rem(0.5) solid rgba(0,0,0,0.1);
+    top: px2rem(0);
+}
+.mint-button-text {
+    font-size: px2rem(40);
+    font-weight: 300;
+    height: px2rem(80);
+}
+
+.tab-bar-wrapper {
+  position: fixed;// position的新属性，可以实现吸顶效果，但是兼容性不好
+  top: px2rem(78);
+  z-index: 1;
+  top: px2rem(40);
+  height: px2rem(50);
+  width: 100%;
+  border-bottom: px2rem(1) solid #ededed;
+  background: #fff;
+  .tab-bar {
+    display: flex;
+    height: px2rem(50);
+    align-items: center;
+    li {
+      flex: 1;
+      text-align: center;
+      font-size: px2rem(14);
+      span {
+        padding: 0 px2rem(10);
+      }
+      &.z-act {
+        color: #ff5f16;
+      }
+    }
+  }
+}
+.cinema-ul {
+  padding-top: px2rem(90);
+}
+.cinema-ul  li {
+    position: relative;
+    background-color: #fff;
+    padding: px2rem(15);
+}
+.cinema-ul li a {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
+  align-items: center;
+}
+.cinema-left {
+  width: 80%;
+}
+.cinema-name {
+  color: #191a1b;
+  font-size: px2rem(15);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+.cinema-address {
+  font-size: px2rem(12);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: px2rem(10);
+  color: #797d82;
+  width: 100%;
+}
+.cinema-low-price {
+  font-size: px2rem(15);
+  color: #ff5f16;
+}
+.cinema-distance {
+  font-size: px2rem(12);
+  color: #797d82;
+  margin-top: px2rem(10);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

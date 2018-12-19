@@ -5,7 +5,7 @@
       </div>
       <h2>
         <router-link to="/user/card" v-if="!phone">立即登录</router-link>
-        <span v-if="phone">{{ phone.phone }}</span>
+        <span v-if="phone">{{ phone.phone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2') }}</span>
       </h2>
     </header>
     <main id="main">

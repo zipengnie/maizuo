@@ -79,8 +79,7 @@ var router = new VueRouter({
           name: 'cinema',
           // component: Cinema
           // 路由懒加载
-          component: () =>
-            import('./views/Cinema.vue')
+          component: () => import('./views/Cinema.vue')
         },
         // 个人中心首页
         {
@@ -104,6 +103,14 @@ var router = new VueRouter({
         console.log('路由独享守卫')
         next()
       }
+    },
+    // 影院详情页
+    {
+      path: '/search',
+      name: 'search',
+      // component: Search,
+      // 路由懒加载
+      component: () => import('./views/Search.vue')
     },
     // 用户
     {
@@ -148,7 +155,7 @@ var router = new VueRouter({
     {
       path: '/city',
       name: 'city',
-      // component: Cinema
+      // component: City
       // 路由懒加载
       component: () => import('./views/City.vue')
     },

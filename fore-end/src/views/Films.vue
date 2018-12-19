@@ -4,8 +4,7 @@
     <Banner></Banner>
      <!-- 定位城市 -->
     <div class="city-fixed">
-      <!-- <span>{{ curCity }}</span> -->
-      <router-link :to="{path:'/city'}">{{ curCity }}</router-link>
+      <router-link tag='span' :to="{path:'/city'}">{{ curCity }}</router-link>
       <i class="iconfont icon-xiala"></i>
     </div>
     <!-- /定位城市 -->
@@ -31,7 +30,7 @@
 import Swiper from 'swiper'
 // 引入Banner组件
 import Banner from '../components/Banner'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 // 引入store仓库
 // import store from '../store'
 // console.log(store.state.curCity)
@@ -42,11 +41,12 @@ export default {
   },
   data () {
     return {
+      curCity: ''
     }
   },
-  computed: {
-    ...mapState(['curCity'])
-  },
+  // computed: {
+  //   ...mapState(['curCity'])
+  // },
   methods: {
     // 根据百度地图API接口获取当前城市的名称
     getCityName () {
@@ -54,9 +54,10 @@ export default {
      var myCity = new BMap.LocalCity()
      myCity.get(result=> {
        this.curCity = result.name
+       // 将获取的当前城市名称通过commit提交给store的state
+       this.$store.commit('curCity',this.curCity)
      })
     },
-
     // 切换路由
     switchList (type) {
       if(type === 'now'){
@@ -77,7 +78,7 @@ export default {
     }
   },
   created () {
-    // this.getCityName ()
+    this.getCityName ()
   },
    mounted () {
     new Swiper('.swiper-container', {
@@ -102,7 +103,6 @@ export default {
         el: '.swiper-scrollbar'
       }
     })
-    // axios库
   }
 }
 </script>

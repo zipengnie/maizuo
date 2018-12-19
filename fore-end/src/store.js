@@ -10,7 +10,7 @@ var store = new Vuex.Store({
   // 状态：放置在整个项目中所有能够全局共用的状态
   state: {
     // 当前城市
-    curCity: '武汉',
+    curCity: '',
     // 项目名称
     project: '卖座网',
     books: [{name: '元宵', isLove: true}, {name: '春节', isLove: true}, {name: '重阳', isLove: false}, {name: '元旦', isLove: true}],
@@ -21,7 +21,7 @@ var store = new Vuex.Store({
   // 在 store 中定义“getter”（可以认为是 store 的计算属性）。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
   getters: {
     myLoveBooks (state, getters) {
-      console.log(getters)
+      // console.log(getters)
       var arr = state.books.filter(item => {
         return item.isLove
       })
@@ -34,9 +34,9 @@ var store = new Vuex.Store({
   // mutations是唯一能改变state状态的东西，是同步的操作
   mutations: {
     // state 就是当前 store实例的 state 属性
-    chgCurCity (state, payload) {
-      // state.curCity = payload
-      state.curCity = payload.cityName
+    curCity (state, payload) {
+      // 从Films组件获取当前定位的城市名称
+      state.curCity = payload
     },
     // 添加电影票到购物车
     addFilm (state, payload) {

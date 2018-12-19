@@ -3,11 +3,11 @@
     <header id="header">
       <div class="logo"></div>
       <div class="sj">
-        <input type="text" placeholder="手机号" v-model="phoneInput">
-        <span>获取验证码</span>
+        <input type="text" placeholder="手机号" v-model.trim="phoneInput">
+        <!-- <span>获取验证码</span> -->
       </div>
       <div class="yzm">
-        <input type="text" placeholder="验证码" v-model="codeInput">
+        <input type="text" placeholder="验证码" v-model.trim="codeInput">
       </div>
       <button @click="handleLogin" :disabled="isDisabled">登录</button>
     </header>
@@ -49,7 +49,7 @@ export default {
           setTimeout(() => {
             instance.close()
           }, 2000)
-          // 写入 本地存储
+          // 写入本地存储
           localStorage.setItem('userName', JSON.stringify({'phone': result.data.phone}))
 
           // var myNeedPage = localStorage.getItem('myNeedPage')
@@ -78,7 +78,6 @@ export default {
   display: flex;
   flex-direction: column;
   .logo {
-    // flex: 1;
     width: px2rem(100);
     height: px2rem(100);
     background: url(../images/logo.jpg) no-repeat;
@@ -90,10 +89,15 @@ export default {
     display: flex;
     height: px2rem(55);
     margin: px2rem(10) px2rem(25);
-    border-bottom: px2rem(1) solid #ccc;
     input {
-      width: 70%;
+      width: 100%;
       font-size: px2rem(18);
+      border: px2rem(1) solid #FD4E00;
+      text-indent: px2rem(10);
+      outline: none;
+    }
+    input::-webkit-input-placeholder {
+      color: #FD4E00;
     }
     span {
       width: 30%;

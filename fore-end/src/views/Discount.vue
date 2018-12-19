@@ -11,8 +11,10 @@
               <div class="price-left">
                 <span class="currentPrice">￥{{ (item.price/100).toFixed(2) }}</span><span class="originalPrice">原价￥{{ (item.marketPrice/100).toFixed(2) }}</span>
                 <div class="imgs">
-                  <!-- <img  class="user-img" :src="img1" />
-                  <img class="user-img" :src="img2"/> -->
+                  <img class="user-img"
+                    v-for="user in item.userList"
+                    :key="user.icon"
+                    :src="user.icon" />
                 </div>
               </div>
               <button>去拼单</button>
@@ -58,6 +60,7 @@ a {
   text-decoration: none;
 }
 .discount-img{
+  width: 100%;
   height: px2rem(210);
 }
 p {
@@ -108,11 +111,15 @@ p:first {
   height:  px2rem(30);
   border-radius:  px2rem(23);
 }
-img[user-img]:last-child {
-  margin-left: px2rem(-10);
-  z-index: 1;
-  border: px2rem(1) solid #fff;
-  transform: translateZ(1px);
+.imgs {
+  width: px2rem(70);
+  position: relative;
+  padding-left: px2rem(20);
+}
+.user-img:nth-of-type(2) {
+  position: absolute;
+  z-index: -1;
+  left: px2rem(40);
 }
 .user-img img {
   width:  px2rem(30);
