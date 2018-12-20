@@ -54,48 +54,6 @@
             <i class="iconfont icon-youjiantou"></i>
           </div>
         </router-link>
-        <!-- <router-link tag="div" class="card" to="/user/card">
-          <div class="list">
-            <img src="../images/1.png" alt srcset>
-            <i style="color: rgb(245, 89, 89);" class="iconfont icon-qia01"></i>
-            <span>卖座卡</span>
-          </div>
-          <div class="list1">
-            <i class="iconfont icon-20151209tubiaolianxizhuanhuan09-copy"></i>
-          </div>
-        </router-link>
-        <router-link tag="div" class="card" to="/user/card">
-          <div class="list">
-            <img src="../images/1.png" alt srcset>
-            <i style="color: rgb(245, 89, 89);" class="iconfont icon-qia01"></i>
-            <span>卖座卡</span>
-          </div>
-          <div class="list1">
-            <i class="iconfont icon-20151209tubiaolianxizhuanhuan09-copy"></i>
-          </div>
-        </router-link>-->
-        <!-- <router-link tag="div" class="balnace" to="/user/balnace">
-        <div class="list">
-          <img src="../images/1.png" alt srcset>
-          <i style="color: rgb(245, 89, 89);" class="iconfont icon-qia01"></i>
-          <span>余额</span>
-        </div>
-        <div class="list1">
-          <i class="iconfont icon-20151209tubiaolianxizhuanhuan09-copy"></i>
-        </div>
-      </router-link>
-
-      <router-link tag="div" class="set" to="/user/set">
-        <div class="set">
-          <div class="list">
-            <img src="../images/3.png" alt srcset>
-            <span>设置</span>
-          </div>
-          <div class="list1">
-            <i class="iconfont icon-20151209tubiaolianxizhuanhuan09-copy"></i>
-          </div>
-        </div>
-        </router-link>-->
       </div>
     </main>
   </div>
@@ -103,15 +61,15 @@
 
 <script>
 export default {
-  name: "Center",
-  data() {
+  name: 'Center',
+  data () {
     return {
-      phone: JSON.parse(localStorage.getItem("userName"))
-        ? JSON.parse(localStorage.getItem("userName"))
-        : ""
-    };
+      phone: JSON.parse(localStorage.getItem('userName'))
+        ? JSON.parse(localStorage.getItem('userName'))
+        : ''
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

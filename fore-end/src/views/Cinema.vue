@@ -6,11 +6,16 @@
           <a href="#/" class="router-link-active">
             <button class="mint-button mint-button--default mint-button--normal">
               <label class="mint-button-text">{{ curCity }}</label>
+              <i class="iconfont icon-xiala"></i>
             </button>
           </a>
         </div>
-        <h1 class="mint-header-title">影院</h1>
-        <router-link to="/search"><i class="iconfont icon-sousuo"></i></router-link>
+        <div class="mint-header-title">
+            <h1 class="mint-header-text">影院</h1>
+        </div>
+        <div class="mint-header-button is-right" style="text-align: right;">
+          <router-link to="/search"><i class="iconfont icon-sousuo"></i></router-link>
+        </div>
       <div class="mint-header-button is-right"></div>
     </header>
     <!-- 全部和最近去过 -->
@@ -105,9 +110,23 @@ export default {
     z-index: 1;
     border-bottom: px2rem(0.5) solid rgba(0,0,0,0.1);
     top: px2rem(0);
+    a {
+      text-decoration: none;
+      i {
+        text-align: right;
+        font-size: px2rem(20);
+      }
+    }
+}
+.mint-header-title {
+  // width: 60%;
+  width:  px2rem(420);
+}
+.mint-button {
+  width: 16%;
 }
 .mint-button-text {
-    font-size: px2rem(40);
+    font-size: px2rem(14);
     font-weight: 300;
     height: px2rem(80);
 }

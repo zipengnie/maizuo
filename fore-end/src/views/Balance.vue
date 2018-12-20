@@ -9,22 +9,24 @@
     </mt-header>
     <div class="detail">
       <div class="money">
+        <p>当前余额</p>
         <span>￥0.00元</span>
       </div>
       <router-link tag="div" to="/">
         <img src="../images/balance.png">
+        <p>暂无余额使用明细</p>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { Header } from "mint-ui";
-Vue.component(Header.name, Header);
+import Vue from 'vue'
+import { Header } from 'mint-ui'
+Vue.component(Header.name, Header)
 export default {
-  name: "Balance"
-};
+  name: 'Balance'
+}
 </script>
 <style lang="scss" scoped>
 /* @import '../styles/common/px2rem.scss'; */
