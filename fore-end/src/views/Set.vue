@@ -50,16 +50,13 @@ export default {
   name: 'Set',
   methods: {
     removeLocalStorage () {
-      console.log(1)
-      // localStorage.clear()
+      this.$router.replace({path: '/'})
+      localStorage.clear()
     }
   }
-  // beforeRouterLeave (to, from, next) {
-  //   next()
-  // }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 /* @import '../styles/common/px2rem.scss'; */
 @import "@/styles/common/px2rem.scss";
 .set {

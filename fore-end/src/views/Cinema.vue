@@ -3,7 +3,7 @@
     <div>
       <header class="mint-header">
         <div class="mint-header-button is-left">
-          <a href="#/" class="router-link-active">
+          <a href="#/city" class="router-link-active">
             <button class="mint-button mint-button--default mint-button--normal">
               <label class="mint-button-text">{{ curCity }}</label>
               <i class="iconfont icon-xiala"></i>

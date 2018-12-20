@@ -2,7 +2,7 @@
 <div>
   <div class='mint-searchbar'>
     <div class="mint-searchbar-inner">
-      <i class="mintui mintui-search"></i><input type='text' v-model.lazy="searchValue" placeholder="搜索" class="mint-searchbar-core">
+      <i class="mintui mintui-search"></i><input type='text' v-model="searchValue" placeholder="搜索" class="mint-searchbar-core">
   </div>
   <a class="mint-searchbar-cancel" style="display: none;">取消</a></div>
   <div v-show="searchValue">
@@ -70,7 +70,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/styles/common/px2rem.scss";
 .mint-searchbar {
   position: fixed;

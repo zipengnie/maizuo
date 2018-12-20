@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/styles/common/px2rem.scss";
 li {
   border-bottom: px2rem(6) solid rgba(0,0,0,0.2);

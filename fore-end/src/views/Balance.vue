@@ -28,7 +28,7 @@ export default {
   name: 'Balance'
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 /* @import '../styles/common/px2rem.scss'; */
 @import "@/styles/common/px2rem.scss";
 .balance {
