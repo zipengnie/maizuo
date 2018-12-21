@@ -15,9 +15,8 @@
     <div class="cinemaTab">
         <span @click.stop="switchList('all')">全部<i class="iconfont icon-xiala"></i></span>
         <span @click.stop="switchList('near')">最近去过<i class="iconfont icon-xiala"></i></span>
-      <!-- <component :is='curAddress' v-show='toggle()'></component> -->
-      <!-- <component v-bind:is='curAddress'></component> -->
     </div>
+    <component :is='curAddress' v-show='toggle()'></component>
   </div>
   <div class="cinema-content">
     <ul class="cinema-ul">
@@ -69,7 +68,7 @@ export default {
     },
     // 点击切换toggle
     toggle () {
-      this.curAddress = !this.curAddress
+      return !this.curAddress
     }
   },
   // 动态组件（切换选项卡）

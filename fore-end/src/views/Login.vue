@@ -13,7 +13,6 @@
     </header>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 import { Toast } from 'mint-ui'
@@ -45,15 +44,8 @@ export default {
         var result = res.data
         console.log(result)
         if (result.data.phone === this.phoneInput && result.data.code === this.codeInput) {
-          let instance = Toast('登录成功')
-          setTimeout(() => {
-            instance.close()
-          }, 2000)
           // 写入本地存储
           localStorage.setItem('userName', JSON.stringify({'phone': result.data.phone}))
-
-          // var myNeedPage = localStorage.getItem('myNeedPage')
-
           // 取出 query的 redirect 的值
           let redirect = this.$route.query.redirect
           this.$router.replace(redirect)

@@ -1,7 +1,7 @@
 <template>
   <div class="center">
-    <header class="center-header">
-      <div class="tou" :class="{ touPhoto: phone}"></div>
+    <div class="center-header">
+      <div class="avatar" :class="{ touPhoto: phone}"></div>
       <h2>
         <router-link to="/user/card" v-if="!phone">立即登录</router-link>
         <span
@@ -11,7 +11,7 @@
     -webkit-font-smoothing: antialiased;color:#fff;"
         >{{ phone.phone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2') }}</span>
       </h2>
-    </header>
+    </div>
     <div class="center-content">
       <div class="centerTab">
         <h3>
@@ -34,7 +34,7 @@
             <i class="iconfont icon-youjiantou"></i>
           </div>
         </router-link>
-          <router-link tag="div" class="router-div" to="/user/balance">
+        <router-link tag="div" class="router-div" to="/user/balance">
           <div class="left">
             <img src="../images/2.png" alt srcset>
             <span class="text">余额</span>
@@ -44,7 +44,7 @@
             <i class="iconfont icon-youjiantou"></i>
           </div>
         </router-link>
-          <router-link tag="div" class="router-div" to="/user/set">
+        <router-link tag="div" class="router-div" to="/user/set">
           <div class="left">
             <img src="../images/3.png" alt srcset>
             <span class="text">设置</span>
@@ -78,87 +78,86 @@ export default {
 .center {
   flex: 1;
   background: #f4f4f4;
-}
-
-.center-header {
-  height: px2rem(160);
-  background: url("~@/images/banner.png") no-repeat;
-  background-size: 100%;
-  display: flex;
-  .tou {
-    height: px2rem(67);
-    width: px2rem(67);
-    border: px2rem(2) solid white;
-    background: #ccc url("~@/images/head.png") no-repeat 0 0;
-    border-radius: 50%;
-    align-self: center;
-    margin-left: px2rem(20);
-  }
-  .touPhoto {
-    background: #ccc url("../images/tou.gif") no-repeat;
+  .center-header {
+    height: px2rem(160);
+    background: url("~@/images/banner.png") no-repeat;
     background-size: 100%;
-  }
-  h2 {
-    font-size: px2rem(16);
-    align-self: center;
-    margin-left: px2rem(20);
-    a {
-      color: white;
+    display: flex;
+    .avatar {
+      height: px2rem(67);
+      width: px2rem(67);
+      border: px2rem(2) solid white;
+      background: #ccc url("~@/images/head.png") no-repeat 0 0;
+      border-radius: 50%;
+      align-self: center;
+      margin-left: px2rem(20);
+    }
+    .touPhoto {
+      background: #ccc url("../images/tou.gif") no-repeat;
+      background-size: 100%;
+    }
+    h2 {
+      font-size: px2rem(16);
+      align-self: center;
+      margin-left: px2rem(20);
+      a {
+        color: white;
+      }
     }
   }
-}
-.center-content {
-  flex: 1;
-  display: flex;
-  background: #f4f4f4;
-  flex-direction: column;
-  .centerTab {
+  .center-content {
+    flex: 1;
     display: flex;
-    height: px2rem(80);
-    h3 {
-      background: white;
-      flex: 1;
+    background: #f4f4f4;
+    flex-direction: column;
+    .centerTab {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      img {
-        width: px2rem(26);
-        height: px2rem(26);
-      }
-      span {
-        font-size: px2rem(16);
-        color: #ccc;
+      height: px2rem(80);
+      h3 {
+        background: white;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        img {
+          width: px2rem(26);
+          height: px2rem(26);
+        }
+        span {
+          font-size: px2rem(16);
+          color: #ccc;
+        }
       }
     }
   }
-}
-.center-margin {
-  border-top: px2rem(10) solid #f4f4f4;
-  .router-div {
-    background:#fff;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    padding: px2rem(10) px2rem(20);
-    .left {
-      height: px2rem(24);
+  .center-margin {
+    border-top: px2rem(10) solid #f4f4f4;
+    .router-div {
+      background: #fff;
       display: flex;
       justify-content: space-between;
       align-content: center;
-      img {
-        height:  px2rem(24);
+      padding: px2rem(10) px2rem(20);
+      .left {
+        height: px2rem(24);
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        img {
+          height: px2rem(24);
+        }
+        .text {
+          font-size: px2rem(16);
+          line-height: px2rem(24);
+          margin-left: px2rem(10);
+        }
       }
-      .text {
-        font-size: px2rem(16);
-        line-height:  px2rem(24);
-        margin-left: px2rem(10);
-      }
-    }
-    .right {
-      i {
-         font-size: px2rem(16);
+      .right {
+        i {
+          font-size: px2rem(16);
+        }
       }
     }
   }
