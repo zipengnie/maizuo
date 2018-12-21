@@ -7,7 +7,7 @@
         </mt-button>
       </router-link>
     </mt-header>
-    <div class="detail">
+    <div class="balance-detail">
       <div class="money">
         <p>当前余额</p>
         <span>￥0.00元</span>
@@ -62,9 +62,10 @@ export default {
 .mint-header-title {
   width: 100%;
   height: px2rem(40);
+  line-height: px2rem(40);
   font-size: px2rem(20);
 }
-.detail {
+.balance-detail {
   height: 100%;
   .money {
     width: 100%;

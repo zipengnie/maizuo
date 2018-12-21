@@ -1,6 +1,6 @@
 <template>
-  <div class="center-view">
-    <header id="header">
+  <div class="center">
+    <header class="center-header">
       <div class="tou" :class="{ touPhoto: phone}"></div>
       <h2>
         <router-link to="/user/card" v-if="!phone">立即登录</router-link>
@@ -12,8 +12,8 @@
         >{{ phone.phone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2') }}</span>
       </h2>
     </header>
-    <main id="main">
-      <div class="dingdan">
+    <div class="center-content">
+      <div class="centerTab">
         <h3>
           <img class="filmOrder" src="../images/filmOrder.png">
           <span>电影订单</span>
@@ -23,7 +23,7 @@
           <span>拼团订单</span>
         </h3>
       </div>
-      <div class="ul">
+      <div class="center-margin">
         <router-link tag="div" class="router-div" to="/user/card">
           <div class="left">
             <img src="../images/1.png" alt srcset>
@@ -55,7 +55,7 @@
           </div>
         </router-link>
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -75,12 +75,12 @@ export default {
 <style lang="scss">
 /* @import '../styles/common/px2rem.scss'; */
 @import "@/styles/common/px2rem.scss";
-.center-view {
+.center {
   flex: 1;
   background: #f4f4f4;
 }
 
-#header {
+.center-header {
   height: px2rem(160);
   background: url("~@/images/banner.png") no-repeat;
   background-size: 100%;
@@ -107,12 +107,12 @@ export default {
     }
   }
 }
-#main {
+.center-content {
   flex: 1;
   display: flex;
   background: #f4f4f4;
   flex-direction: column;
-  .dingdan {
+  .centerTab {
     display: flex;
     height: px2rem(80);
     h3 {
@@ -134,7 +134,7 @@ export default {
     }
   }
 }
-.ul {
+.center-margin {
   border-top: px2rem(10) solid #f4f4f4;
   .router-div {
     background:#fff;
@@ -144,7 +144,6 @@ export default {
     padding: px2rem(10) px2rem(20);
     .left {
       height: px2rem(24);
-      // background: red;
       display: flex;
       justify-content: space-between;
       align-content: center;

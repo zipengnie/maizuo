@@ -123,10 +123,13 @@ export default {
   }
 }
 
+// 提示信息
 .mint-toast {
-  font-size: px2rem(80);
+  background: #f4f4f4;
 }
 .mint-toast-text {
-   font-size: px2rem(80);
+  background: #f4f4f4;
+  color: #000;
+  font-size: px2rem(14);
 }
 </style>

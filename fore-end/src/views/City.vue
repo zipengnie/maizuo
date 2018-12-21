@@ -16,16 +16,16 @@
   </div>
   <div class="city-content">
     <!-- 搜索之后的城市列表 -->
-    <ul class="city-ul" v-show="searchCity">
+    <ul class="city-search-ul" v-show="searchCity">
       <li v-for="(item, index) in filterCity" :key="index">
         {{ item.name || item.pinyin }}
       </li>
     </ul>
     <!-- 页面的城市列表 -->
-    <div class="cityList" v-show="!searchCity">
+    <div class="city-render-ul" v-show="!searchCity">
       <mt-index-list>
         <mt-index-section v-for="(item, index) in cityData" :key="index" :index='item.inital'>
-        <li class="cityLi">
+        <li class="city-render-li">
           <a href="#" v-for="obj in item.list" :key="obj.id">{{ obj.name }}</a>
         </li>
         </mt-index-section>
@@ -105,7 +105,7 @@ export default {
       let instance = Toast('未查询到匹配的城市信息')
       setTimeout(() => {
         instance.close()
-      }, 1000)
+      }, 600)
     }
   },
   created () {
@@ -178,7 +178,7 @@ export default {
   }
   .city-content {
   // 搜索列表
-  .city-ul {
+  .city-search-ul {
     margin-top: px2rem(106);
     li {
       height: px2rem(30);
@@ -188,7 +188,7 @@ export default {
     }
   }
   // 页面的城市列表
-  .cityLi {
+  .city-render-li {
     width: 100%;
     a {
         text-decoration: none;
@@ -240,14 +240,14 @@ export default {
     font-size: px2rem(12);
     margin: px2rem(2) 0;
   }
-  // 提示信息
-  .mint-toast {
-    background: #f4f4f4;
-  }
-  .mint-toast-text {
-    background: #f4f4f4;
-    color: #000;
-    font-size: px2rem(14);
-  }
+}
+// 提示信息
+.mint-toast {
+  background: #f4f4f4;
+}
+.mint-toast-text {
+  background: #f4f4f4;
+  color: #000;
+  font-size: px2rem(14);
 }
 </style>
