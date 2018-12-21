@@ -1,28 +1,27 @@
 <template>
-  <div>
-    <div class="cityHeard">
-      <header class="mint-header">
-        <div class="mint-header-button is-left">
-          <a href="#/" class="router-link-active" style="text-decoration: none;">
-            <button class="mint-button mint-button--default mint-button--normal">
-              <label class="mint-button-text"><i class="iconfont icon-untitled94"></i></label>
-            </button>
-          </a>
-        </div>
-        <h1 class="mint-header-title">当前城市 -</h1>
-        <div class="mint-header-button is-right"></div>
-      </header>
-      <div class='mint-searchbar'>
-        <div class="mint-searchbar-inner">
-          <i class="mintui mintui-search"></i><input type="text" v-model="searchCity" placeholder="输入城市名或拼音" class="mint-searchbar-core">
-      </div>
-      <a class="mint-searchbar-cancel" style="display: none;">取消</a></div>
-    </div>
+<div class="city">
+  <div class="city-header">
+    <mt-header title="当前城市 -">
+      <router-link to="/" slot="left">
+        <mt-button icon="back"><i class="iconfont icon-untitled94"></i></mt-button>
+      </router-link>
+      <mt-header-title>当前城市 -</mt-header-title>
+      <a></a>
+    </mt-header>
+    <mt-search
+      v-model="searchCity"
+      cancel-text="取消"
+      placeholder="搜索">
+    </mt-search>
+  </div>
+  <div class="city-content">
+    <!-- 搜索之后的城市列表 -->
     <ul class="city-ul" v-show="searchCity">
       <li v-for="(item, index) in filterCity" :key="index">
         {{ item.name || item.pinyin }}
       </li>
     </ul>
+    <!-- 页面的城市列表 -->
     <div class="cityList" v-show="!searchCity">
       <mt-index-list>
         <mt-index-section v-for="(item, index) in cityData" :key="index" :index='item.inital'>
@@ -33,15 +32,14 @@
       </mt-index-list>
     </div>
   </div>
+</div>
 </template>
-
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import { Header, Search, IndexList, IndexSection, Cell, Toast } from 'mint-ui'
+import { Header, Search, IndexList, IndexSection, Toast } from 'mint-ui'
 Vue.use(Header.name, Header)
-Vue.use(Search.name, Search)
-Vue.component(Cell.name, Cell)
+Vue.component(Search.name, Search)
 Vue.component(IndexList.name, IndexList)
 Vue.component(IndexSection.name, IndexSection)
 export default {
@@ -115,132 +113,141 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
 @import "@/styles/common/px2rem.scss";
-.cityHeard {
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-  background: #fff;
-}
-.mint-header {
-  width: 100%;
-  height: px2rem(40);
-  padding: px2rem(1) 0;
-  background: #fff;
-  // 退出按钮x
-  .mint-header-button {
-    box-sizing: border-box;
-    line-height: px2rem(40);
-    i {
-      font-size: px2rem(16);
-      line-height: px2rem(40);
-      margin: 0 px2rem(30) 0 px2rem(6);
-      color: #000;
+.city {
+  .city-header {
+    // 头部
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    mt-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      background: #fff;
+      a {
+        width: 20%;
+        height: px2rem(40);
+        mt-button {
+          margin-left:  px2rem(10);
+          i {
+            height: px2rem(40);
+            font-size: px2rem(16);
+            line-height: px2rem(40);
+            margin: 0 px2rem(30) 0 px2rem(6);
+            color: #000;
+          }
+        }
+      }
+      mt-header-title {
+        width: 60%;
+        height: px2rem(40);
+        line-height: px2rem(40);
+        font-size: px2rem(18);
+        color: #000;
+        text-align: center;
+      }
+    }
+    // 搜索
+    .mint-searchbar {
+      width: 100%;
+      padding: px2rem(10) px2rem(16);
+      .mint-searchbar-inner {
+        height: px2rem(30);
+        .mintui-search {
+          font-size: px2rem(14);
+        }
+        .mint-searchbar-core {
+          height: px2rem(30);
+          font-size: px2rem(14);
+          padding-left:  px2rem(14);
+        }
+      }
+    }
+    ::-webkit-input-placeholder {
+      color:rgba(0,0,0,0.4);
+      font-size:  px2rem(12);
+    }
+    .mint-searchbar-cancel {
+        text-align: left;
+        font-size: 14px;
+        color: #000;
+        font-size: px2rem(14);
     }
   }
-  // 当前城市
-  .mint-header-title {
-    font-size: px2rem(18);
-    color: #000;
-  }
-}
-// 搜索
-.mint-searchbar {
-  width: 100%;
-  padding: px2rem(10) px2rem(16);
-  background: rgba(0,0,0,0.08);
-  .mint-searchbar-inner {
-    height: px2rem(30);
-    .mintui-search {
-      font-size: px2rem(14);
-    }
-    .mint-searchbar-core {
+  .city-content {
+  // 搜索列表
+  .city-ul {
+    margin-top: px2rem(106);
+    li {
       height: px2rem(30);
-      font-size: px2rem(14);
-      padding-left:  px2rem(14);
-    }
-  }
-}
-::-webkit-input-placeholder {
-  color:rgba(0,0,0,0.4);
-  font-size:  px2rem(12);
-}
-.mint-searchbar-cancel {
-    text-align: left;
-    font-size: 14px;
-    color: #000;
-    font-size: px2rem(14);
-}
-// 搜索列表
-.city-ul {
-  margin-top: px2rem(106);
-  li {
-    height: px2rem(30);
-    color: #191a1b;
-    font-size: px2rem(14);
-    text-indent: px2rem(34);
-  }
-}
-// 城市列表
-.mint-indexlist-content {
-  width: 97%;
-  margin-top: px2rem(96);
-  .mint-indexsection-index {
-    font-size: px2rem(12);
-    background: #f4f4f4;
-    color: #797d82;
-    padding: 0 0 0 px2rem(15);
-    height: px2rem(30);
-    line-height: px2rem(30);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-}
-.cityLi {
-  width: 100%;
-   a {
-      text-decoration: none;
-      display: inline-block;
-      width: 33%;
-      height: px2rem(48);
-      line-height: px2rem(48);
-      padding: 0 px2rem(16);
-      text-align: center;
       color: #191a1b;
       font-size: px2rem(14);
-      background: #fff;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      text-indent: px2rem(34);
     }
-}
-// 首字母
-.mint-indexlist-nav {
-  width: 3%;
-  position: relative;
-  .mint-indexlist-navlist {
-    position: fixed;
-    right: 1%;
-    top: 56%;
-    transform: translateY(-50%);
-    width: 3%;
-    text-align: center;
   }
-}
-.mint-indexlist-navitem {
-  width: 100%;
-  font-size: px2rem(12);
-  margin: px2rem(2) 0;
-}
-// 提示信息
-.mint-toast {
-  background: #f4f4f4;
-}
-.mint-toast-text {
-  background: #f4f4f4;
-  color: #000;
-  font-size: px2rem(14);
+  // 页面的城市列表
+  .cityLi {
+    width: 100%;
+    a {
+        text-decoration: none;
+        display: inline-block;
+        width: 33%;
+        height: px2rem(48);
+        line-height: px2rem(48);
+        padding: 0 px2rem(16);
+        text-align: center;
+        color: #191a1b;
+        font-size: px2rem(14);
+        background: #fff;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+  }
+  }
+  // 城市列表
+  .mint-indexlist-content {
+    width: 97%;
+    margin-top: px2rem(96);
+    .mint-indexsection-index {
+      font-size: px2rem(12);
+      background: #f4f4f4;
+      color: #797d82;
+      padding: 0 0 0 px2rem(15);
+      height: px2rem(30);
+      line-height: px2rem(30);
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  }
+  // 首字母
+  .mint-indexlist-nav {
+    width: 3%;
+    position: relative;
+    .mint-indexlist-navlist {
+      position: fixed;
+      right: 1%;
+      top: 56%;
+      transform: translateY(-50%);
+      width: 3%;
+      text-align: center;
+    }
+  }
+  .mint-indexlist-navitem {
+    width: 100%;
+    font-size: px2rem(12);
+    margin: px2rem(2) 0;
+  }
+  // 提示信息
+  .mint-toast {
+    background: #f4f4f4;
+  }
+  .mint-toast-text {
+    background: #f4f4f4;
+    color: #000;
+    font-size: px2rem(14);
+  }
 }
 </style>

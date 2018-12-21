@@ -56,6 +56,10 @@ var router = new VueRouter({
           component: () => import('./views/Films.vue'),
           children: [
             {
+              path: '',
+              redirect: '/films/nowPlaying'
+            },
+            {
               // 正在上映
               path: 'nowPlaying',
               name: 'nowPlaying',
@@ -222,7 +226,7 @@ var router = new VueRouter({
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   // NProgress.start()
-  Indicator.open('加载中...')
+  // Indicator.open('加载中...')
   // 判断当前要去的路由是不是卖座卡或者余额或者设置  这样在全局里面是没有问题，只是要做判断
   // if (to.name === 'card' || to.name === 'yue' || to.name === 'set') {
   //   // 如果当前用户有登录，就可以去
@@ -239,7 +243,7 @@ router.beforeEach((to, from, next) => {
 // 全局后置守卫
 router.afterEach((to, from) => {
   // NProgress.done()
-  Indicator.close()
+  // Indicator.close()
   // console.log(from)
   // console.log(to)
 })
